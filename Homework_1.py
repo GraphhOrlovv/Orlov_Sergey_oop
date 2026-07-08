@@ -8,28 +8,45 @@
 Проверь, как это повлияло на значения у обоих объектов.
 Убедись, что __dict__ объектов отражает изменения."""
 
-class Dog:
-    species = "canis"
-    legs = 4
-
-dog_1 = Dog()
-dog_2 = Dog()
-
-dog_2.legs = 3
-
-print(dog_1.legs) # Никак, количество лап взято из класса Dog
-print(dog_2.legs) # Повлияло, так как создали локальный атрибут
-
-print(dog_1.__dict__) # Пусто, так как не переопределяли и не создавали ничего
-print(dog_2.__dict__) # Создали новый атрибут legs, так что теперь у dog_2 он равен 3
+# class Dog:
+#     species = "canis"
+#     legs = 4
+#
+# dog_1 = Dog()
+# dog_2 = Dog()
+#
+# dog_2.legs = 3
+#
+# print(dog_1.legs) # Никак, количество лап взято из класса Dog
+# print(dog_2.legs) # Повлияло, так как создали локальный атрибут
+#
+# print(dog_1.__dict__) # Пусто, так как не переопределяли и не создавали ничего
+# print(dog_2.__dict__) # Создали новый атрибут legs, так что теперь у dog_2 он равен 3
 
 """2. Добавь в класс Dog строку документации, описывающую его назначение.
 Затем выведи её на экран.
 После этого добавь в объект класса новые атрибуты name и age,
 а затем удали name.
-Проверь, что произойдёт при попытке снова вывести объект.name.
+Проверь, что произойдёт при попытке снова вывести объект.name."""
 
-3. Создай класс User с атрибутами класса role = "guest" и active = True.
+# class Dog:
+#     "Класс для создания и описания собак"
+#     species = "canis"
+#     legs = 4
+#
+# print(Dog.__doc__)
+#
+# dog_1 = Dog()
+# dog_1.name = 'Reks'
+# dog_1.age = 5
+#
+# print(dog_1.__dict__)
+#
+# del dog_1.name
+#
+# print(dog_1.name) # Удалили атрибут у dog_1, соответственно его больше нет
+
+"""3. Создай класс User с атрибутами класса role = "guest" и active = True.
 С помощью функций getattr(), setattr(), hasattr() и delattr():
 
 измени значение role на "admin",
@@ -38,3 +55,25 @@ print(dog_2.__dict__) # Создали новый атрибут legs, так ч
 удали role.
 Убедись, что всё работает корректно, и выведи итоговое содержимое __dict__ класса User.
 """
+
+# import pprint
+#
+# class User:
+#     "Класс для создания и описания пользователя"
+#     role = "guest"
+#     active = True
+#
+# print(getattr(User, 'role'), '\n')
+#
+# setattr(User, 'role', "admin")
+# print(getattr(User, 'role', 'Роли не найдены'), '\n')
+#
+# print(hasattr(User, 'active'))
+#
+# setattr(User, 'email', '') # Добавил пока пустой email
+#
+# delattr(User, 'role')
+# print(getattr(User, 'role', 'Роли не найдены'), '\n')
+#
+# pprint.pprint(User.__dict__) # Так намного удобнее читать
+

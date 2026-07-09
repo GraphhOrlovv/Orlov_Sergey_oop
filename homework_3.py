@@ -94,8 +94,37 @@ c.print_info()
 метод set_credentials(login, password), который сохраняет их только если оба значения — строки;
 метод get_credentials(), который возвращает кортеж из логина и пароля.
 Попробуй создать объект и изменить логин снаружи напрямую. Проверь, что это не сработает.
-======================================
-5. Добавь в User:
+======================================"""
+
+# class User:
+#
+#     def __init__(self) -> None:
+#         self.__login = None
+#         self.__password = None
+#
+#     def set_credential(self, login: str, password: str) -> None:
+#         assert (isinstance(login, str) and isinstance(password, str)),\
+#             'Логин и/или пароль не являются строками!'
+#         self.__login = login
+#         self.__password = password
+#
+#     def get_credentials(self) -> tuple[str, str]:
+#         return self.__login, self.__password
+#
+# user_1 = User()
+#
+# user_1.set_credential('ivan@mail.ru', 'qwerty')
+#
+# print(f"Логин и пароль пользователя user_1: {user_1.get_credentials()}\n")
+#
+# user_1.__login = 'wefewfwe'# Создаёт новый атрибут __login, проверим:
+# print(user_1.__dict__, '\n')
+#
+# print(user_1.__login, '\n')
+#
+# print(f"Логин и пароль пользователя user_1: {user_1.get_credentials()}\n") # Ничего не изменилось
+
+"""5. Добавь в User:
 
 метод check_password(password) — возвращает True,
 если переданное значение совпадает с сохранённым паролем;
@@ -107,10 +136,81 @@ u = User()
 u.set_credentials("daniil", "qwerty")
 print(u.check_password("qwerty"))      # True
 print(u.check_password("qwe"))         # False
-======================================
-6. Убедись, что приватный метод __encrypt_password нельзя вызвать извне.
+======================================"""
+
+# class User:
+#
+#     def __init__(self) -> None:
+#         self.__login = None
+#         self.__password = None
+#
+#     @staticmethod
+#     def __encrypt_password(password: str) -> str:
+#         return password.upper()
+#
+#     def set_credential(self, login: str, password: str) -> None:
+#         assert (isinstance(login, str) and isinstance(password, str)),\
+#             'Логин и/или пароль не являются строками!'
+#         self.__login = login
+#         self.__password = self.__encrypt_password(password)
+#
+#     def get_credentials(self) -> tuple[str, str]:
+#         return self.__login, self.__password
+#
+#     def check_password(self, password) -> bool:
+#         return self.__password == self.__encrypt_password(password)
+#
+# user_1 = User()
+#
+# user_1.set_credential('ivan@mail.ru', 'qwerty')
+#
+# print(f"Логин и пароль пользователя user_1: {user_1.get_credentials()}\n")
+#
+# print(user_1.check_password("qwerty"))
+# print(user_1.check_password("qwe"))
+
+"""6. Убедись, что приватный метод __encrypt_password нельзя вызвать извне.
 Попробуй это сделать — и поясни результат.
 Также выведи напрямую u.__password — и проверь, что будет ошибка.
 
 Попробуй добраться до данных через u._User__password
 """
+
+# class User:
+#     "Класс для создания пользователя с логином и паролем"
+#     def __init__(self) -> None:
+#         self.__login = None
+#         self.__password = None
+#
+#     @staticmethod
+#     def __encrypt_password(password: str) -> str:
+#         return password.upper()
+#
+#     def set_credential(self, login: str, password: str) -> None:
+#         assert (isinstance(login, str) and isinstance(password, str)),\
+#             'Логин и/или пароль не являются строками!'
+#         self.__login = login
+#         self.__password = self.__encrypt_password(password)
+#
+#     def get_credentials(self) -> tuple[str, str]:
+#         return self.__login, self.__password
+#
+#     def check_password(self, password) -> bool:
+#         return self.__password == self.__encrypt_password(password)
+#
+# user_1 = User()
+#
+# user_1.set_credential('ivan@mail.ru', 'qwerty')
+#
+# print(f"Логин и пароль пользователя user_1: {user_1.get_credentials()}\n")
+#
+# print(user_1.check_password("qwerty"))
+# print(user_1.check_password("qwe"))
+#
+# # user_1.__encrypt_password('asdfg') # Python не понимает, что за метод, так как он приватный
+#
+# print(f"Логин и пароль пользователя user_1: {user_1.get_credentials()}\n")
+#
+# # print(user_1.__password) # Пишет, что такого атрибута нет
+#
+# print(user_1._User__password) # Подчёркивает и ругается, но пароль выводит, но так делать нельзя

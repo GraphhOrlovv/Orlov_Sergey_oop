@@ -200,8 +200,42 @@ print(form.username)     # "admin"
 проверку установки корректного номера;
 проверку исключения при вводе короткого номера;
 проверку вывода замаскированного номера.
-======================================
-8. Создай класс UserData для API регистрации пользователя:
+======================================"""
+
+from datetime import datetime
+
+class Card:
+
+    @property
+    def number(self):
+        num = str(self.__number)
+        return "**** " * 3 + num[-4:]
+
+    @number.setter
+    def number(self, num):
+        if len(str(num)) != 16:
+            raise ValueError("Номер карты должен состоять ровно из 16 цифр!")
+        self.__number = str(num)
+
+    @number.deleter
+    def number(self):
+        print(f'{datetime.now().strftime("%d.%m.%Y %H:%M:%S")}: Удалён номер карты.')
+        del self.__number
+
+card_1 = Card()
+
+card_1.number = 1234567891234567
+
+print(card_1.number)
+
+print(card_1.__dict__)
+
+del card_1.number
+
+print(card_1.__dict__)
+
+
+"""8. Создай класс UserData для API регистрации пользователя:
 email — строка, содержит @;
 age — целое число ≥ 18;
 is_active — bool;

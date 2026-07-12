@@ -202,38 +202,53 @@ print(form.username)     # "admin"
 проверку вывода замаскированного номера.
 ======================================"""
 
-from datetime import datetime
+# from datetime import datetime
+#
+# class Card:
+#
+#     @property
+#     def number(self):
+#         num = str(self.__number)
+#         return "**** " * 3 + num[-4:]
+#
+#     @number.setter
+#     def number(self, num):
+#         if len(str(num)) != 16:
+#             raise ValueError("Номер карты должен состоять ровно из 16 цифр!")
+#         self.__number = str(num)
+#
+#     @number.deleter
+#     def number(self):
+#         print(f'{datetime.now().strftime("%d.%m.%Y %H:%M:%S")}: Удалён номер карты.')
+#         del self.__number
 
-class Card:
+"""Тесты: """
 
-    @property
-    def number(self):
-        num = str(self.__number)
-        return "**** " * 3 + num[-4:]
+"""Тест 1:"""
+#
+# card_1 = Card()
+# card_1.number = 1234567891234567
+# assert card_1._Card__number == '1234567891234567', "Номер не сохранился"
+# print(card_1.number)
+#
+# print("Тест 1 на установку корректного номера пройден.")
 
-    @number.setter
-    def number(self, num):
-        if len(str(num)) != 16:
-            raise ValueError("Номер карты должен состоять ровно из 16 цифр!")
-        self.__number = str(num)
+"""Тест 2:"""
+# try:
+#     card_1 = Card()
+#     card_1.number = 123456789123456
+#     assert False, "Ожидалось исключение, но его не было"
+# except ValueError as e:
+#     assert str(e) == "Номер карты должен состоять ровно из 16 цифр!", "Тест не пройден"
+#     print("Тест 2 на попытку ввести короткий номер пройден.")
 
-    @number.deleter
-    def number(self):
-        print(f'{datetime.now().strftime("%d.%m.%Y %H:%M:%S")}: Удалён номер карты.')
-        del self.__number
-
-card_1 = Card()
-
-card_1.number = 1234567891234567
-
-print(card_1.number)
-
-print(card_1.__dict__)
-
-del card_1.number
-
-print(card_1.__dict__)
-
+"""Тест 3:"""
+# card_1 = Card()
+# card_1.number = 3487654909123465
+# assert card_1.number == '**** **** **** 3465', "Номер не зашифрован"
+# print(card_1.number)
+#
+# print("Тест 3 на проверку вывода замаскированного номера пройден.")
 
 """8. Создай класс UserData для API регистрации пользователя:
 email — строка, содержит @;
@@ -246,3 +261,91 @@ is_active — bool;
 проверь, что json возвращает корректную структуру.
 
 """
+
+# class UserData:
+#
+#     def __init__(self, email, age, is_active):
+#         self.__email = email
+#         self.__age = age
+#         self.__is_active = is_active
+#
+#     @property
+#     def email(self):
+#         if '@' not in self.__email:
+#             raise NameError("Email должен содержать символ '@'")
+#         return self.__email
+#
+#     @email.setter
+#     def email(self, name_email):
+#         if '@' not in name_email:
+#             raise NameError("Email должен содержать символ '@'")
+#         self.__email = name_email
+#
+#     @property
+#     def age(self):
+#         if not isinstance(self.__age, int) or self.__age < 18:
+#             raise ValueError("Возраст не может быть нецелым или меньше 18")
+#         return self.__age
+#
+#     @age.setter
+#     def age(self, num):
+#         if not isinstance(num, int) or num < 18:
+#             raise ValueError("Возраст не может быть нецелым или меньше 18")
+#         self.__age = num
+#
+#     @property
+#     def is_active(self):
+#         if not isinstance(self.__is_active, bool):
+#             raise TypeError("is_active должен быть булевым значением")
+#         return self.__is_active
+#
+#     @is_active.setter
+#     def is_active(self, value):
+#         if not isinstance(value, bool):
+#             raise TypeError("is_active должен быть булевым значением")
+#         self.__is_active = value
+#
+#     @property
+#     def json(self):
+#         if '@' not in self.__email:
+#             raise NameError("Email должен содержать символ '@'")
+#         if not isinstance(self.__age, int) or self.__age < 18:
+#             raise ValueError("Возраст не может быть нецелым или меньше 18")
+#         if not isinstance(self.__is_active, bool):
+#             raise TypeError("is_active должен быть булевым значением")
+#         return {
+#             "email": self.__email,
+#             "age": self.__age,
+#             "is_active": self.__is_active
+#         }
+
+"""Тесты: """
+
+"""Тест 1: """
+
+# user_1 = UserData('vanya@yandex.ru', 18, True)
+# try:
+#     user_1.age = 15
+#     assert False, "Здесь ожидалась ошибка, но её не было"
+# except ValueError as e:
+#     assert str(e) == "Возраст не может быть нецелым или меньше 18", "Тест не пройден"
+#     print(user_1.age)
+#     print("Тест 1 на проверку присвоения невалидного возраста пройден")
+
+"""Тест 2: """
+
+# user_1 = UserData('vanya@yandex.ru', 18, True)
+# try:
+#     user_1.email = 'eqhowflkmgoierqg'
+#     assert False, "Здесь ожидалась ошибка, но её не было"
+# except NameError as e:
+#     assert str(e) == "Email должен содержать символ '@'", "Тест не пройден"
+#     print(user_1.email)
+#     print("Тест 2 на проверку присвоения невалидного почтового адреса пройден")
+
+"""Тест 3: """
+
+# user_1 = UserData('vanya@yandex.ru', 18, True)
+# assert isinstance(user_1.json, dict), "json не возвращает словарь"
+# print(user_1.json)
+# print("Тест 3 на проверку возврата json корректной структуры пройден")

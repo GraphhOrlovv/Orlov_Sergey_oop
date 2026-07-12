@@ -13,13 +13,13 @@ print(data.get_secret())  # "пароль123"
 
 # class SecureData:
 #
-#     def __init__(self, secret):
+#     def __init__(self, secret: str) -> None:
 #         self.__secret = secret
 #
-#     def get_secret(self):
+#     def get_secret(self) -> str:
 #         return self.__secret
 #
-#     def __getattribute__(self, name):
+#     def __getattribute__(self, name: str) -> str:
 #         if name == "__secret":
 #             raise ValueError("Это секретные данные! Просто так их получить не получится)")
 #         return object.__getattribute__(self, name)
@@ -38,18 +38,18 @@ data.other = "ok"      # ✅ работает
 
 # class SecureData:
 #
-#     def __init__(self, secret):
+#     def __init__(self, secret: str) -> None:
 #         self.__secret = secret
 #
-#     def get_secret(self):
+#     def get_secret(self) -> str:
 #         return self.__secret
 #
-#     def __getattribute__(self, name):
+#     def __getattribute__(self, name: str) -> str:
 #         if name == "__secret":
 #             raise ValueError("Ошибка")
 #         return object.__getattribute__(self, name)
 #
-#     def __setattr__(self, key, value):
+#     def __setattr__(self, key: str, value: str):
 #         if key == 'token':
 #             raise AttributeError(f"Имя атрибута не может быть '{key}'")
 #         object.__setattr__(self, key, value)
@@ -61,7 +61,6 @@ data.other = "ok"      # ✅ работает
 # data.other = "ok"
 #
 # print(data.__dict__) # Проверил, правильно ли я всё понимаю
-
 
 """3. Создай класс SafeDict, в котором:
 
@@ -77,10 +76,10 @@ del d.key            # "Удалён атрибут key"
 
 # class SafeDict:
 #
-#     def __getattr__(self, name):
+#     def __getattr__(self, name: str | int | float) -> str:
 #         return "N/A"
 #
-#     def __delattr__(self, name):
+#     def __delattr__(self, name: str | int | float) -> None:
 #         print(f"Удалён атрибут {name}")
 #         object.__delattr__(self, name)
 #
@@ -106,16 +105,16 @@ e.salary = -100   # ❌ ValueError
 
 # class Employee:
 #
-#     def __init__(self, name, salary):
+#     def __init__(self, name: str, salary: int | float) -> None:
 #         self.__name = name
 #         self.__salary = salary
 #
 #     @property
-#     def salary(self):
+#     def salary(self) -> int | float:
 #         return self.__salary
 #
 #     @salary.setter
-#     def salary(self, value):
+#     def salary(self, value: int) -> None:
 #         if value < 0:
 #             raise ValueError(f"Зарплата должна быть положительной, а получено '{value}'!")
 #         self.__salary = value
@@ -135,22 +134,22 @@ print(e.__dict__)  # salary нет"""
 
 # class Employee:
 #
-#     def __init__(self, name, salary):
+#     def __init__(self, name: str, salary: int | float) -> None:
 #         self.__name = name
 #         self.__salary = salary
 #
 #     @property
-#     def salary(self):
+#     def salary(self) -> int:
 #         return self.__salary
 #
 #     @salary.setter
-#     def salary(self, value):
+#     def salary(self, value: int) -> None:
 #         if value < 0:
 #             raise ValueError(f"Зарплата должна быть положительной, а получено '{value}'!")
 #         self.__salary = value
 #
 #     @salary.deleter
-#     def salary(self):
+#     def salary(self) -> None:
 #         print("Зарплата удалена")
 #         del self.__salary
 #
@@ -179,11 +178,11 @@ print(form.username)     # "admin"
 # class LoginForm:
 #
 #     @property
-#     def username(self):
+#     def username(self) -> str:
 #         return self.__username
 #
 #     @username.setter
-#     def username(self, name):
+#     def username(self, name: str) -> None:
 #         print(f"Username изменён на {name}")
 #         self.__username = name
 #
@@ -207,18 +206,18 @@ print(form.username)     # "admin"
 # class Card:
 #
 #     @property
-#     def number(self):
+#     def number(self) -> str:
 #         num = str(self.__number)
 #         return "**** " * 3 + num[-4:]
 #
 #     @number.setter
-#     def number(self, num):
+#     def number(self, num: int) -> None:
 #         if len(str(num)) != 16:
 #             raise ValueError("Номер карты должен состоять ровно из 16 цифр!")
 #         self.__number = str(num)
 #
 #     @number.deleter
-#     def number(self):
+#     def number(self) -> None:
 #         print(f'{datetime.now().strftime("%d.%m.%Y %H:%M:%S")}: Удалён номер карты.')
 #         del self.__number
 
@@ -264,49 +263,49 @@ is_active — bool;
 
 # class UserData:
 #
-#     def __init__(self, email, age, is_active):
+#     def __init__(self, email: str, age: int, is_active: bool) -> None:
 #         self.__email = email
 #         self.__age = age
 #         self.__is_active = is_active
 #
 #     @property
-#     def email(self):
+#     def email(self) -> str:
 #         if '@' not in self.__email:
 #             raise NameError("Email должен содержать символ '@'")
 #         return self.__email
 #
 #     @email.setter
-#     def email(self, name_email):
+#     def email(self, name_email: str) -> None:
 #         if '@' not in name_email:
 #             raise NameError("Email должен содержать символ '@'")
 #         self.__email = name_email
 #
 #     @property
-#     def age(self):
+#     def age(self) -> int:
 #         if not isinstance(self.__age, int) or self.__age < 18:
 #             raise ValueError("Возраст не может быть нецелым или меньше 18")
 #         return self.__age
 #
 #     @age.setter
-#     def age(self, num):
+#     def age(self, num: int) -> None:
 #         if not isinstance(num, int) or num < 18:
 #             raise ValueError("Возраст не может быть нецелым или меньше 18")
 #         self.__age = num
 #
 #     @property
-#     def is_active(self):
+#     def is_active(self) -> bool:
 #         if not isinstance(self.__is_active, bool):
 #             raise TypeError("is_active должен быть булевым значением")
 #         return self.__is_active
 #
 #     @is_active.setter
-#     def is_active(self, value):
+#     def is_active(self, value: bool) -> None:
 #         if not isinstance(value, bool):
 #             raise TypeError("is_active должен быть булевым значением")
 #         self.__is_active = value
 #
 #     @property
-#     def json(self):
+#     def json(self) -> dict:
 #         if '@' not in self.__email:
 #             raise NameError("Email должен содержать символ '@'")
 #         if not isinstance(self.__age, int) or self.__age < 18:
@@ -317,7 +316,7 @@ is_active — bool;
 #             "email": self.__email,
 #             "age": self.__age,
 #             "is_active": self.__is_active
-#         }
+#          }
 
 """Тесты: """
 

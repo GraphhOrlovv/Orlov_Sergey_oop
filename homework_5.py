@@ -10,22 +10,21 @@ print(validator("python"))  # True
 print(validator("hi"))      # ValueError
 ======================================"""
 
-class LengthValidator:
-
-    def __init__(self, min_length, max_length):
-        self.min_length = min_length
-        self.max_length = max_length
-
-    def __call__(self, value):
-        if len(value) not in range(self.min_length, self.max_length + 1):
-            raise ValueError(f"Длина переданной строки '{value}'"
-                             f" не в диапазоне {self.min_length, self.max_length + 1}")
-        return True
-
-validator = LengthValidator(3, 10)
-print(validator("python"))  # True
-print(validator("hi"))      # ValueError
-
+# class LengthValidator:
+#
+#     def __init__(self, min_length: int, max_length: int) -> None:
+#         self.min_length = min_length
+#         self.max_length = max_length
+#
+#     def __call__(self, value: str) -> bool:
+#         if len(value) not in range(self.min_length, self.max_length + 1):
+#             raise ValueError(f"Длина переданной строки '{value}'"
+#                              f" не в диапазоне {self.min_length, self.max_length + 1}")
+#         return True
+#
+# validator = LengthValidator(3, 10)
+# print(validator("python"))  # True
+# print(validator("hi"))      # ValueError
 
 """2. Создай класс Sumator, который:
 при первом вызове принимает число;
@@ -36,16 +35,44 @@ s = Sumator()
 print(s(5))   # 5
 print(s(10))  # 15
 print(s(-2))  # 13
-======================================
-3. Создай класс HasText, который:
+======================================"""
+
+# class Sumator:
+#
+#     def __init__(self) -> None:
+#         self.summ = 0
+#
+#     def __call__(self, num: int | float) -> int | float:
+#         self.summ += num
+#         return self.summ
+#
+# s = Sumator()
+# print(s(5))   # 5
+# print(s(10))  # 15
+# print(s(-2))  # 13
+
+"""3. Создай класс HasText, который:
 в __init__ принимает ожидаемую подстроку;
 в __call__ принимает текст и возвращает True, если подстрока найдена.
 Подумай как сделать так, чтобы работало как и в примере?
 Пример:
 assert HasText("Success")("Test passed: Success")  # True
 assert HasText("Error")("All OK")  # False
-======================================
-4. Создай класс Book, который хранит:
+======================================"""
+
+class HasText:
+
+    def __init__(self, value_in: str) -> None:
+        self.value_in = value_in
+
+    def __call__(self, value):
+        print(self.value_in in value)
+        return self.value_in in value
+
+assert HasText("Success")("Test passed: Success")  # True
+assert HasText("Error")("All OK")  # False
+
+"""4. Создай класс Book, который хранит:
 название книги (title)
 автора (author)
 Переопредели __str__ и __repr__, чтобы:

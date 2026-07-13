@@ -60,17 +60,17 @@ assert HasText("Success")("Test passed: Success")  # True
 assert HasText("Error")("All OK")  # False
 ======================================"""
 
-class HasText:
-
-    def __init__(self, value_in: str) -> None:
-        self.value_in = value_in
-
-    def __call__(self, value):
-        print(self.value_in in value)
-        return self.value_in in value
-
-assert HasText("Success")("Test passed: Success")  # True
-assert HasText("Error")("All OK")  # False
+# class HasText:
+#
+#     def __init__(self, value_in: str) -> None:
+#         self.value_in = value_in
+#
+#     def __call__(self, value: str) -> bool:
+#         print(self.value_in in value)
+#         return self.value_in in value
+#
+# assert HasText("Success")("Test passed: Success")
+# assert HasText("Error")("All OK")
 
 """4. Создай класс Book, который хранит:
 название книги (title)
@@ -82,10 +82,40 @@ repr(book) показывал <Book 'Название' by Автор>
 book = Book("1984", "Джордж Оруэлл")
 print(book)         # Джордж Оруэлл — 1984
 print(repr(book))   # <Book '1984' by Джордж Оруэлл>
-======================================
-5. Создай класс TestUser, который содержит id, name, email.
+======================================"""
+
+# class Book:
+#
+#     def __init__(self, title: str, author: str) -> None:
+#         self.title = title
+#         self.author = author
+#
+#     def __str__(self) -> str:
+#         return f"{self.author} - {self.title}"
+#
+#     def __repr__(self) -> str:
+#         return f"<Book '{self.title}' by {self.author}>"
+#
+# book = Book("1984", "Джордж Оруэлл")
+# print(book)
+# print(repr(book))
+
+"""5. Создай класс TestUser, который содержит id, name, email.
 Переопредели __repr__, чтобы его было удобно видеть в логах автотеста:
 user = TestUser(12, "Daniil", "daniil@example.com")
 print(user)
 # <TestUser id=12 name='Daniil' email='daniil@example.com'>
 """
+
+# class TestUser:
+#
+#     def __init__(self, id: int, name: str, email: str) -> None:
+#         self.id = id
+#         self.name = name
+#         self.email = email
+#
+#     def __repr__(self) -> str:
+#         return f"<TestUser id={self.id} name='{self.name}' email='{self.email}'>"
+#
+# user = TestUser(12, "Daniil", "daniil@example.com")
+# print(user)

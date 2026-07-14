@@ -101,13 +101,126 @@
 Создай класс, который наследует оба класса. Создай экземпляр этого класса.
 ======================================"""
 
+import datetime
 
+# class BookingHotel:
+#
+#     def __init__(self, room_class, floor_number, price_for_night):
+#         if not 1 < floor_number < 31:
+#             raise ValueError("Этаж не может быть меньше 1 и больше 30")
+#         super().__init__()
+#         self.room_class = room_class
+#         self.floor_number = floor_number
+#         self.price_for_night = price_for_night
+#
+#     def print_info(self):
+#         print(f"Класс номера: {self.room_class}, этаж: {self.floor_number}, цена: {self.price_for_night} рублей")
+#
+# class MixinLog:
+#     ID = 0
+#     def __init__(self):
+#         print("init MixinLog")
+#         MixinLog.ID += 1
+#         self.id = MixinLog.ID
+#
+#     def save_sell_log(self):
+#         print(f"{self.id} забронирован в {datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
+#
+# class Notebook(BookingHotel, MixinLog):
+#     pass
+#
+# n = Notebook("Business", 30, 10_000)
+# n.print_info()
+# n.save_sell_log()
+# print()
+# c = Notebook("Luxe", 5, 5_000)
+# c.print_info()
+# c.save_sell_log()
 
 """6. В Goods и MixinLog реализуй print_info().
 Создай NoteBook(Goods, MixinLog) и проверь, какой метод вызывается.
 Измени порядок наследования — изменилась ли логика?
-======================================
-======================================
+======================================"""
+
+# import datetime
+#
+# class BookingHotel:
+#
+#     def __init__(self, room_class: str, floor_number: int, price_for_night: int | float) -> None:
+#         if not 1 < floor_number < 31:
+#             raise ValueError("Этаж не может быть меньше 1 и больше 30")
+#         super().__init__()
+#         self.room_class = room_class
+#         self.floor_number = floor_number
+#         self.price_for_night = price_for_night
+#
+#     def print_info(self):
+#         print(f"Класс номера: {self.room_class}, этаж: {self.floor_number}, цена: {self.price_for_night} рублей")
+#
+# class MixinLog:
+#     ID = 0
+#     def __init__(self):
+#         print("init MixinLog")
+#         MixinLog.ID += 1
+#         self.id = MixinLog.ID
+#         self.time_now = None
+#
+#     def save_sell_log(self):
+#         self.time_now = datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+#         print(f"{self.id} забронирован в {self.time_now}")
+#
+#     def print_info(self):
+#         print(f"ID номера: {self.id}, время создания брони: {self.time_now}")
+#
+# class Notebook(BookingHotel, MixinLog): # Если меняю порядок наследования, то возникает ошибка,
+#                                         # так как MixinLog не принимает никакие аргументы, поэтому надо исправить это
+#     pass
+#
+# n = Notebook("Business", 30, 10_000)
+# n.print_info() # Сейчас вызывается метод у класса BookingHotel, так как он стоит раньше в MRO
+# n.save_sell_log()
+
+""" Исправим код """
+
+# import datetime
+#
+# class BookingHotel:
+#
+#     def __init__(self, room_class: str, floor_number: int, price_for_night: int | float, **kwargs) -> None:
+#         if not 1 < floor_number < 31:
+#             raise ValueError("Этаж не может быть меньше 1 и больше 30")
+#         super().__init__(**kwargs)
+#         self.room_class = room_class
+#         self.floor_number = floor_number
+#         self.price_for_night = price_for_night
+#
+#     def print_info(self):
+#         print(f"Класс номера: {self.room_class}, этаж: {self.floor_number}, цена: {self.price_for_night} рублей")
+#
+# class MixinLog:
+#     ID = 0
+#     def __init__(self, *args, **kwargs):
+#         print("init MixinLog")
+#         MixinLog.ID += 1
+#         self.id = MixinLog.ID
+#         self.time_now = None
+#         super().__init__(*args, **kwargs)
+#
+#     def save_sell_log(self):
+#         self.time_now = datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+#         print(f"{self.id} забронирован в {self.time_now}")
+#
+#     def print_info(self):
+#         print(f"ID номера: {self.id}, время создания брони: {self.time_now}")
+#
+# class Notebook(MixinLog, BookingHotel):
+#     pass
+#
+# n = Notebook("Business", 30, 10_000)
+# n.save_sell_log()
+# n.print_info() # Сейчас уже вызывается метод у класса MixinLog, так как он уже стоит раньше в MRO
+
+"""======================================
 Далее задания можете сделать через классы, функции или без них.
 ======================================
 ======================================

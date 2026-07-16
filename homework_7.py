@@ -371,8 +371,66 @@ import datetime
 """14. Реализуй две вложенные конструкции:
 Внешний try/except обрабатывает неверный ввод (строки вместо чисел);
 Внутренний try/except ловит деление на ноль.
-======================================
-15. Вынеси обработку деления в отдельную функцию divide(x, y)
+======================================"""
+
+# def divide_2_nums() -> int | float | str:
+#
+#     try:
+#         try:
+#             nums = input("Пожалуйста, введите 2 числа через пробел.\n"
+#                          "Второе число не должно быть равно нулю: ").split()
+#
+#             if len(nums) != 2:
+#                 return "Ошибка ввода: нужно ввести ровно 2 числа"
+#
+#             num_1, num_2 = map(float, nums)
+#             result = num_1 / num_2
+#
+#         except ZeroDivisionError:
+#             return "Ошибка: на ноль делить нельзя!!"
+#     except ValueError:
+#         return "Ошибка ввода: введите два числа через пробел"
+#     except Exception as e:
+#         return f"Произошла неизвестная ошибка: {e}"
+#
+#     else:
+#         return f"Деление выполнено успешно\nРезультат: {result}"
+#
+#     finally:
+#         print("Работа программы завершена")
+#
+# print(divide_2_nums())
+
+"""15. Вынеси обработку деления в отдельную функцию divide(x, y)
 с собственным try/except.
 Во внешнем коде обработай только ошибку ввода.
 """
+
+# Уже написал функцию, но если нужно, напишу так:
+
+# def divide(x: int | float, y: int | float) -> int | float | None:
+#     try:
+#         return x / y
+#     except ZeroDivisionError:
+#         print("Ошибка: на ноль делить нельзя!!")
+#
+# try:
+#     nums = input("Пожалуйста, введите 2 числа через пробел.\n"
+#                          "Второе число не должно быть равно нулю: ").split()
+#
+#     if len(nums) != 2:
+#         raise ValueError("Ошибка ввода: нужно ввести ровно 2 числа")
+#     num_1, num_2 = map(float, nums)
+#     result = divide(num_1, num_2)
+#
+# except ValueError as e:
+#     print(e)
+# except Exception as e:
+#     print(f"Произошла неизвестная ошибка: {e}")
+#
+# else:
+#     if result:
+#         print(f"Деление выполнено успешно\nРезультат: {result}")
+#
+# finally:
+#     print("Работа программы завершена")

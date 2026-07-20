@@ -189,8 +189,78 @@ DivisionByZeroError
 Проверь:
 успешное изменение списка;
 откат при ошибке.
-======================================
-======================================
+======================================"""
+
+class BackupList:
+
+    def __init__(self, my_list: list) -> None:
+        self.my_list = my_list
+        self.backup = None
+
+    def __enter__(self) -> "BackupList":
+        self.backup = self.my_list.copy()
+        print(f"Создалась копия списка {self.my_list}")
+        return self
+
+    def __exit__(self, exc_type, exc_val, exc_tb) -> False:
+        if exc_type is None:
+            print("успешное изменение списка")
+        else:
+            self.my_list.clear()
+            self.my_list.extend(self.backup)
+            print("откат при ошибке")
+        return False
+
+# Без ошибки:
+
+# a = [1,2,3,4]
+# with BackupList(a) as backup:
+#     a.append(5)
+#     a.append(6)
+#     print(a)
+#
+# print(a)
+
+# С ошибкой:
+
+# a = [1,2,3,4]
+#
+# try:
+#     with BackupList(a) as backup:
+#         a.append(5)
+#         a.append(6)
+#         print(f"Список внутри: {a}")
+#         raise ValueError("Неизвестная ошибка")
+# except ValueError:
+#     print("Ошибка перехвачена")
+#
+# print(a)
+
+"""======================================
 12. Создай декоратор-класс Timer,
 который измеряет время выполнения функции и выводит результат.
 """
+
+# import time
+#
+# class Timer:
+#     def __init__(self, func: callable) -> None:
+#         self.func = func
+#
+#     def __call__(self, *args, **kwargs) -> int | float:
+#         time_before = time.time()
+#         result = self.func(*args, **kwargs)
+#         time_after = time.time()
+#         print(f"Результат: {result}")
+#         print(f"Время выполнения функции {self.func.__name__}: {time_after - time_before:.20f} сек")
+#         return result
+#
+# @Timer
+# def divide(a: int | float, b: int | float) -> int | float:
+#     a = a ** 100
+#     b = b ** 100
+#     return a / b
+#
+# divide(5, 2)
+
+
